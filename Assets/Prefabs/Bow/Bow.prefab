@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: ec3c67fa4ba0f3048b3d1adfce1474d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -674,11 +674,11 @@ MonoBehaviour:
   OnBowReleased:
     m_PersistentCalls:
       m_Calls: []
-  midPointGrab: {fileID: 0}
-  midPointVisual: {fileID: 0}
-  midPointParent: {fileID: 0}
-  bowString: {fileID: 0}
-  stretchLimit: 0.5
+  midPointGrab: {fileID: 6087412987848794645}
+  midPointVisual: {fileID: 7157958416787371190}
+  midPointParent: {fileID: 7925056989398029268}
+  bowString: {fileID: 4775958407120703917}
+  stretchLimit: 0.3
 --- !u!1 &4278048339489182220
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +703,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4278048339489182220}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.266, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -711,7 +711,7 @@ Transform:
   - {fileID: 6087412987848794645}
   - {fileID: 7157958416787371190}
   m_Father: {fileID: 7184204656853948281}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &4326174960919123473
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,16 +17,16 @@ namespace BowString
             SetStringPositions(null);
         }
 
-        public void SetStringPositions(Vector3? midPoint)
+        public void SetStringPositions(Vector3? midPosition)
         {
-            Vector3[] linePositions = new Vector3[midPoint.HasValue ? 3 : 2];
-            linePositions[0] = startPoint.localPosition;
+            Vector3[] linePoints = new Vector3[midPosition.HasValue ? 3 : 2];
+            linePoints[0] = startPoint.localPosition;
 
 
-            if(midPoint.HasValue) linePositions[1] = this.transform.InverseTransformPoint(midPoint.Value);
-            linePositions[^1] = endPoint.localPosition;
-            lineRenderer.positionCount = linePositions.Length;
-            lineRenderer.SetPositions(linePositions);
+            if(midPosition.HasValue) linePoints[1] = transform.InverseTransformPoint(midPosition.Value);
+            linePoints[^1] = endPoint.localPosition;
+            lineRenderer.positionCount = linePoints.Length;
+            lineRenderer.SetPositions(linePoints);
         }
     }
     

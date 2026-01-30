@@ -12,44 +12,44 @@ namespace BowString
 
         [SerializeField] private Transform midPointGrab, midPointVisual, midPointParent;
         [SerializeField] private BowString bowString;
-        [SerializeField] private float stretchLimit= 0.5f;
+        [SerializeField] private float stretchLimit = 0.3f;
 
-        private XRGrabInteractable grabInteractable;
+        private XRGrabInteractable _interactable;
 
-        private Transform interactor;
+        private Transform _interactor;
 
-        private float strenght;
+        private float strength;
 
 
         private void Awake()
         {
-            grabInteractable = midPointGrab.GetComponent<XRGrabInteractable>();
+            _interactable = midPointGrab.GetComponent<XRGrabInteractable>();
         }
 
 
         private void Start()
         {
-            grabInteractable.selectEntered.AddListener(PreparePull);
-            grabInteractable.selectExited.AddListener(ReleaseBow);
+            _interactable.selectEntered.AddListener(PreparePull);
+            _interactable.selectExited.AddListener(ReleaseBow);
         }
 
         public void OnDestroy()
         {
-            grabInteractable.selectEntered.RemoveListener(PreparePull);
-            grabInteractable.selectExited.RemoveListener(ReleaseBow);
+            _interactable.selectEntered.RemoveListener(PreparePull);
+            _interactable.selectExited.RemoveListener(ReleaseBow);
         }
 
         private void PreparePull(SelectEnterEventArgs select)
         {
-            interactor =  select.interactorObject.transform;
+            _interactor = select.interactorObject.transform;
             OnBowPulled.Invoke();
         }
 
         private void ReleaseBow(SelectExitEventArgs select)
         {
-            OnBowReleased.Invoke(strenght);
-            strenght = 0;
-            grabInteractable = null;
+            OnBowReleased.Invoke(strength);
+            strength = 0;
+            _interactor = null;
 
             midPointGrab.localPosition = Vector3.zero;
             midPointVisual.localPosition = Vector3.zero;
@@ -60,11 +60,11 @@ namespace BowString
 
         private void Update()
         {
-            if (grabInteractable)
+            if (_interactor)
             {
                 Vector3 localPos = midPointParent.InverseTransformPoint(midPointGrab.position);
                 
-                float grabLocalBack  = Mathf.Abs(localPos.z);
+                float grabLocalBack  = Mathf.Abs(localPos.x);
 
 
                 HandlePushedTowardsBow(localPos);
@@ -80,18 +80,18 @@ namespace BowString
 
         private void HandlePushedTowardsBow(Vector3 localPos)
         {
-            if (localPos.z > 0)
+            if (localPos.x > 0)
             {
-                strenght = 0;
+                strength = 0;
                 midPointGrab.localPosition = Vector3.zero;
             }
         }
 
         private void HandlePulledToLimit(float grabLocalBack, Vector3 localPos)
         {
-            if (localPos.z > 0 && grabLocalBack >= stretchLimit)
+            if (localPos.x < 0 && grabLocalBack >= stretchLimit)
             {
-                strenght = 1;
+                strength = 1;
                 midPointVisual.localPosition = new Vector3(0, 0, -stretchLimit);
             }
         }
@@ -99,11 +99,11 @@ namespace BowString
         private void HandlePull(float grabLocalBack, Vector3 localPos)
         {
             
-            if (localPos.z < 0 && grabLocalBack < stretchLimit)
+            if (localPos.x < 0 && grabLocalBack < stretchLimit)
             {
-                strenght = Remap(grabLocalBack, 0, stretchLimit, 0, 1);
+                strength = Remap(grabLocalBack, 0, stretchLimit, 0, 1);
 
-                midPointVisual.localPosition = new Vector3(0, 0, localPos.z);
+                midPointVisual.localPosition = new Vector3(0, 0, localPos.x);
             }
         }
 
